@@ -32,3 +32,18 @@ to detect phishing links, social engineering, and voice deepfakes.
 ```bash
 cd backend
 uvicorn main:app --reload --port 8000
+---
+
+
+## 👩‍💻 Developer
+
+**Developed by Cyber Valkariz**
+**Developed by:** Cyber Valkariz Team  
+**Competition:** National Cybersecurity Competition 2025  
+**Category:** Cybersecurity Tools & Platforms
+
+### 👥 Team Members
+| Name | Role |
+|------|------|
+| Maryam Furat Ghaloob | Lead Developer & Security Engineer |
+| Maryam Muhammad Subhi | Frontend Developer & UI/UX Designer |

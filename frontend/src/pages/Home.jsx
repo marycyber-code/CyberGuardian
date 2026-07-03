@@ -154,6 +154,13 @@ export default function Home() {
                 fontSize:'0.87rem', fontWeight:500, transition:'color .2s' }}>
               Voice Detector
             </a></li>
+            <li><a href="/dashboard" className="nav-link"
+  style={{ color:'#7B2FFF', textDecoration:'none',
+    fontSize:'0.87rem', fontWeight:600,
+    padding:'6px 14px', borderRadius:'8px',
+    border:'1px solid rgba(123,47,255,0.3)' }}>
+  🖥️ Dashboard
+</a></li>
             <li><a href="/" style={{
               background:'linear-gradient(135deg,#00F0FF,#00A8B5)',
               color:'#04070F', padding:'7px 18px', borderRadius:'8px',
