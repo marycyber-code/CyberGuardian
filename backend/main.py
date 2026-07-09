@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from pydantic import BaseModel, validator
 from routers import social_analyzer, voice_detector
 from services import virustotal
@@ -8,7 +7,6 @@ import time
 
 app = FastAPI(title="Cyber Guardian API")
 
-# ── CORS ──
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -16,19 +14,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Rate Limiting بسيط ──
 RATE_LIMIT = {}
 
 @app.middleware("http")
-async def rate_limit(request: Request, call_next):
+async def rate_limit(request, call_next):
     ip = request.client.host
     now = time.time()
     hits = [t for t in RATE_LIMIT.get(ip, []) if now - t < 60]
     if len(hits) >= 30:
-        return JSONResponse(
-            status_code=429,
-            content={"error": "Too many requests. Wait 1 minute."}
-        )
+        from fastapi.responses import JSONResponse
+        return JSONResponse(status_code=429,
+            content={"error": "Too many requests"})
     hits.append(now)
     RATE_LIMIT[ip] = hits
     return await call_next(request)
@@ -45,12 +41,12 @@ class ScanRequest(BaseModel):
         if len(v) > 2000:
             raise ValueError('URL too long')
         if not v.startswith(('http://', 'https://')):
-            raise ValueError('Invalid URL format')
+            raise ValueError('Invalid URL')
         return v
 
 @app.get("/")
 def root():
-    return {"status": "Cyber Guardian API Running ✅"}
+    return {"status": "Cyber Guardian API Running"}
 
 @app.get("/health")
 def health():
@@ -76,17 +72,15 @@ async def scan_url(req: ScanRequest):
             "source":     "VirusTotal — Real Scan ✅"
         }
     except Exception:
-        suspicious_words = [
+        bad = any(w in req.url.lower() for w in [
             "phish","malware","fake","virus","hack",
             "free","prize","verify","suspended","urgent"
-        ]
-        is_bad = any(w in req.url.lower() for w in suspicious_words)
+        ])
         return {
             "url":        req.url,
-            "safe":       not is_bad,
-            "risk_level": "HIGH" if is_bad else "LOW",
-            "score":      85 if is_bad else 4,
-            "message":    "⚠️ Suspicious URL detected!" if is_bad
-                          else "✅ URL appears safe",
+            "safe":       not bad,
+            "risk_level": "HIGH" if bad else "LOW",
+            "score":      85 if bad else 4,
+            "message":    "⚠️ Suspicious URL!" if bad else "✅ URL appears safe",
             "source":     "Local Analysis — Fallback"
         }

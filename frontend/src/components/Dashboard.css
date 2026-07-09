@@ -1,0 +1,255 @@
+/* الحاوية الرئيسية للتطبيق بالكامل */
+.soc-container {
+  background-color: #050b14;
+  color: #e2e8f0;
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* توزيع الشاشة: القائمة الجانبية على اليسار، والمحتوى على اليمين */
+.soc-layout {
+  display: flex;
+  width: 100%;
+}
+
+/* المحتوى الرئيسي للوحة التحكم - مع إعطاء مساحة (Padding) لعدم التداخل مع السايدبار */
+.soc-main-content {
+  flex: 1;
+  padding: 24px;
+  max-width: calc(100vw - 260px); /* يمنع المحتوى من الاختفاء خلف القائمة الجانبية */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* الهيدر العلوي */
+.soc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1a365d;
+  padding-bottom: 15px;
+}
+
+.time-badge {
+  background: #0f172a;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #1e293b;
+  font-size: 0.85rem;
+}
+
+/* شبكة الكروت الإحصائية */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.kpi-card {
+  background: rgba(10, 25, 47, 0.7);
+  border: 1px solid #1e3a8a;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.kpi-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.kpi-title {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+/* شبكات الألواح المتطورة */
+.panel-grid-top, .panel-grid-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .panel-grid-top, .panel-grid-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+.soc-panel {
+  background: rgba(10, 25, 47, 0.5);
+  border: 1px solid #1a365d;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.panel-title {
+  color: #06b6d4;
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #1a365d;
+  padding-bottom: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* بار الفحص */
+.scanner-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.scanner-input-group input {
+  flex: 1;
+  background: #070f1e;
+  border: 1px solid #1e3a8a;
+  padding: 10px;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.scanner-input-group button {
+  background: #06b6d4;
+  color: #000;
+  border: none;
+  padding: 0 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* جدول التهديدات الحية */
+.feed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.feed-table th, .feed-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #1a365d;
+}
+
+.severity-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+/* 🟢 رادار المسح الاحترافي المتكامل 🟢 */
+.radar-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(6,182,212,0.05) 0%, rgba(5,11,20,1) 70%);
+  border: 2px solid #1a365d;
+  border-radius: 50%;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.radar-sweep {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, rgba(6, 182, 212, 0.4) 0deg, transparent 90deg);
+  border-radius: 50%;
+  animation: radar-spin 4s linear infinite;
+}
+
+.radar-cross-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(6, 182, 212, 0.2);
+}
+
+.radar-cross-v {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(6, 182, 212, 0.2);
+}
+
+.radar-blip {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #06b6d4;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #06b6d4;
+  animation: blip-glow 2s infinite;
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blip-glow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.health-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.node-online {
+  color: #10b981;
+  margin-left: 6px;
+  font-weight: bold;
+}
+
+.footer-section {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #475569;
+  border-top: 1px solid #1a365d;
+  padding-top: 15px;
+  margin-top: 20px;
+}
+.status-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:15px;
+}
+
+.status-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:.82rem;
+    color:#CBD5E1;
+}
+
+.status-good{
+    color:#10B981;
+    font-weight:bold;
+}
+
+.status-warning{
+    color:#F59E0B;
+    font-weight:bold;
+}
